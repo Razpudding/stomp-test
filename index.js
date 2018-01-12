@@ -2,8 +2,6 @@
 //TODO: implement middleware. Have a separate function that subscribes to endpoints
 //		Call that function from the router using next?
 // Separate this up into modules
-// Create a Repo for this (but first add gitignore)
-// Duplicate the models from the main biogasboot app and recreate the mongodb from that app using the new datastream
 
 //Imports
 const express = require('express')
@@ -24,7 +22,7 @@ const client = Stomp.client(process.env.SPECTRAL_DB_URL)
 client.connect(process.env.MQTT_USER, process.env.MQTT_PASS, onConnect, console.error, '/')
 
 //Connect to our MongoDB server which will host our version of the data
-//The reason we need to do this is because we will geerate some new info derived from the raw data
+//The reason we need to do this is because we will generate some new info derived from the raw data
 mongoose.connect(process.env.MONGO_DB_URL);
 mongoose.Promise = global.Promise	//Use the built in ES6 Promise
 
@@ -68,26 +66,16 @@ function onData(data){
 	})
 	dataPoint
 		.save()
-		.then(dataPoint => {
-			//console.log(dataPoint)
-			return DataPoint.find()
-		})
-		.catch(err => {
-			throw Error(err)
-		})
+		.then(dataPoint => { return DataPoint.find() })
+		.catch(err => { throw Error(err) })
 	const statusPoint = new StatusPoint(data)
 	//console.log(statusPoint)
 	statusPoint.Date = moment(`${data.Date} ${data.Time}`, 'DD/MM/YYYY HH:mm:ss').add(1, 'hours').format('YYYY-MM-DD HH:mm:ss'),
 	statusPoint.Digester_Heater_1 = data['Digester_Heater_']
 	statusPoint
 		.save()
-		.then(statusPoint => {
-			//console.log(statusPoint)
-			return StatusPoint.find()
-		})
-		.catch(err => {
-			throw Error(err)
-		})
+		.then(statusPoint => { return StatusPoint.find()})
+		.catch(err => { throw Error(err) })
 }
 
 //Listen for traffic on the specified port
