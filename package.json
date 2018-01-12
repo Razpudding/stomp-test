@@ -1,0 +1,26 @@
+{
+  "name": "stomp-test",
+  "version": "1.0.0",
+  "description": "Testing connection with Jouliette over stomp",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Razpudding/stomp-test.git"
+  },
+  "dependencies": {
+    "@stomp/stompjs": "^4.0.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "http-debug": "^0.1.2",
+    "moment": "^2.20.1",
+    "mongoose": "^4.13.9",
+    "websocket": "^1.0.25",
+    "ws": "^2.3.1"
+  },
+  "author": "Laurens Aarnoudse",
+  "license": "ISC"
+}
