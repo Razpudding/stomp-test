@@ -21,7 +21,7 @@ const boatEndPoint = '/exchange/biogasboat'
 const client = Stomp.client(process.env.SPECTRAL_DB_URL)
 
 //Connect to Spectrals RabbitMQ to allow for a stomp socket connection
-client.connect('web', 'mnwdTGgQu5zPmSrz', onConnect, console.error, '/')
+client.connect(process.env.MQTT_USER, process.env.MQTT_PASS, onConnect, console.error, '/')
 
 //Connect to our MongoDB server which will host our version of the data
 //The reason we need to do this is because we will geerate some new info derived from the raw data
